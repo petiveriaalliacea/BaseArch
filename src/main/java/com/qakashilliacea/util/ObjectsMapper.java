@@ -1,7 +1,9 @@
 package com.qakashilliacea.util;
 
+import com.qakashilliacea.entity.Role;
 import com.qakashilliacea.entity.User;
 import com.qakashilliacea.web.dto.RegisterDto;
+import com.qakashilliacea.web.dto.RoleDto;
 import com.qakashilliacea.web.dto.UserDto;
 import org.springframework.stereotype.Component;
 
@@ -26,6 +28,12 @@ public class ObjectsMapper {
                 .username(dto.getUsername())
                 .password(dto.getPassword())
                 .roles(new HashSet<>())
+                .build();
+    }
+    public static RoleDto converToRoleDto (Role role) {
+        return RoleDto.builder()
+                .id(role.getId())
+                .name(role.getName())
                 .build();
     }
 }
