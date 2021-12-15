@@ -27,6 +27,7 @@ public class AuthServiceImpl implements AuthService {
             return response;
         }
         dto.setPassword(PasswordEncoder.encode(dto.getPassword()));
+        System.err.println(dto.getPassword());
         User user = ObjectsMapper.converToUser(dto);
         user.getRoles().add(roleRepository.getById(Role.ROLE_USER));
         user = userRepository.save(user);
@@ -44,7 +45,7 @@ public class AuthServiceImpl implements AuthService {
             return response;
         }
         User user = userRepository.findByUsername(dto.getUsername());
-        if (!user.getPassword().equals(PasswordEncoder.encode(dto.getPassword()))) {
+        if (!PasswordEncoder.verifyPassword(dto.getPassword(), user.getPassword())) {
             response.setStatus(400);
             response.setErrorMessage(ExceptionAnswers.incorrectPassword());
             return response;
