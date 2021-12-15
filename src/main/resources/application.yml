@@ -3,15 +3,16 @@
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/test
-    username: postgres
-    password: 12345
+    url: jdbc:postgresql://base-archetype-test-postgres.postgres.database.azure.com:5432/test
+    username: postgres@base-archetype-test-postgres
+    password: 12345Abc!
   jpa:
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
         format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
   servlet:
     multipart:
       enabled: true
