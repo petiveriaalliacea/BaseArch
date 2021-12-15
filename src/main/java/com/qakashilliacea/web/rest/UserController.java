@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/public")
+@RequestMapping("/public/user")
 @AllArgsConstructor
 @ApiModel(value = "UserController", description = "User data controller")
 public class UserController {
