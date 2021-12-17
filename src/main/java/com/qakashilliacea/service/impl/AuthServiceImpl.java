@@ -7,7 +7,7 @@ import com.qakashilliacea.entity.User;
 import com.qakashilliacea.respository.RoleRepository;
 import com.qakashilliacea.respository.UserRepository;
 import com.qakashilliacea.service.AuthService;
-import com.qakashilliacea.util.ExceptionAnswers;
+import com.qakashilliacea.util.ErrorMessages;
 import com.qakashilliacea.util.ObjectsMapper;
 import com.qakashilliacea.web.dto.*;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,7 @@ public class AuthServiceImpl implements AuthService {
         ResponseDto response = new ResponseDto<>();
         if (userRepository.existsByUsername(dto.getUsername())) {
             response.setStatus(400);
-            response.setErrorMessage(ExceptionAnswers.userWithLoginExists(dto.getUsername()));
+            response.setErrorMessage(ErrorMessages.userWithLoginExists(dto.getUsername()));
             return response;
         }
         dto.setPassword(PasswordEncoder.encode(dto.getPassword()));
@@ -42,13 +42,13 @@ public class AuthServiceImpl implements AuthService {
         ResponseDto response = new ResponseDto<>();
         if (!userRepository.existsByUsername(dto.getUsername())) {
             response.setStatus(404);
-            response.setErrorMessage(ExceptionAnswers.userNotFoundByUsername(dto.getUsername()));
+            response.setErrorMessage(ErrorMessages.userNotFoundByUsername(dto.getUsername()));
             return response;
         }
         User user = userRepository.findByUsername(dto.getUsername());
         if (!PasswordEncoder.verifyPassword(dto.getPassword(), user.getPassword())) {
             response.setStatus(400);
-            response.setErrorMessage(ExceptionAnswers.incorrectPassword());
+            response.setErrorMessage(ErrorMessages.incorrectPassword());
             return response;
         } else {
             response.setSuccess(true);

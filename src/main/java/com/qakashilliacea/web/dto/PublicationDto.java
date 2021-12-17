@@ -6,8 +6,8 @@ import lombok.Data;
 
 @Data
 @Builder
-@ApiModel(value = "RoleDto", description = "return role details")
-public class RoleDto {
-    private Long id;
+@ApiModel(value = "PublicationDto", description = "gets name , description to create publication")
+public class PublicationDto {
     private String name;
+    private String description;
 }

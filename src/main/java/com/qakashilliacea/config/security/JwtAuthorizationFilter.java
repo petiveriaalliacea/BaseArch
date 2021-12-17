@@ -1,6 +1,6 @@
 package com.qakashilliacea.config.security;
 
-import com.qakashilliacea.util.Constants;
+import com.qakashilliacea.util.constants.Constants;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.MalformedJwtException;
