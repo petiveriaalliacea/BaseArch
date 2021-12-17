@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/public/auth")
 @RequiredArgsConstructor
-@ApiModel(value = "AuthController", description = "Authentication Controller , checks user exists or not.")
+@ApiModel(value = "AuthController", description = "Authentication Controller , user registration and login processes")
 public class AuthController {
     private final AuthService authService;
 
@@ -27,7 +27,7 @@ public class AuthController {
     }
 
     @PostMapping("/signIn")
-    @ApiOperation(value = "login process")
+    @ApiOperation(value = "Login process")
     public ResponseEntity signIn(@ApiParam(value = "dto with login data") @RequestBody LoginDto dto) {
         return ResponseEntity.ok(authService.signIn(dto));
     }
