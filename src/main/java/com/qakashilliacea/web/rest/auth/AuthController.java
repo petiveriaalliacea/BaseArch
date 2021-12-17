@@ -29,10 +29,12 @@ public class AuthController {
         return ResponseEntity.ok(authService.signIn(dto));
     }
 
-    @PostMapping("/verifyEmailAddress/{uuid}")
+    @PostMapping("/verifyEmailAddress")
     @ApiOperation(value = "verification process")
-    public ResponseEntity verify(@ApiParam(value = "code which have sent to email address")
-                                 @PathVariable("uuid") String uuid) {
-        return ResponseEntity.ok(authService.verifyEmail(uuid));
+    public ResponseEntity verify(@ApiParam(value = "uuid to verify")
+                                 @RequestParam("uuid") String uuid,
+                                 @ApiParam(value = "code to verify email")
+                                 @RequestParam("code") String code) {
+        return ResponseEntity.ok(authService.verifyEmail(uuid, code));
     }
 }

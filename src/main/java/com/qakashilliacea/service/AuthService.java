@@ -9,5 +9,5 @@ public interface AuthService {
 
     ResponseDto signIn(LoginDto dto);
 
-    ResponseDto verifyEmail(String uuid);
+    ResponseDto verifyEmail(String uuid, String code);
 }

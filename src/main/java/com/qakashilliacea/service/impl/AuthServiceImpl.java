@@ -12,11 +12,14 @@ import com.qakashilliacea.service.AuthService;
 import com.qakashilliacea.service.EmailSenderService;
 import com.qakashilliacea.util.ErrorMessages;
 import com.qakashilliacea.util.ObjectsMapper;
+import com.qakashilliacea.util.constants.ErrorConstants;
 import com.qakashilliacea.web.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -39,9 +42,10 @@ public class AuthServiceImpl implements AuthService {
         user.getRoles().add(roleRepository.getById(Role.ROLE_USER));
         user.setIsVerified(false);
         user = userRepository.save(user);
-        emailSenderService.sendEmail(user);
+        String uuid = UUID.randomUUID().toString();
+        emailSenderService.sendEmail(user, uuid);
         responseDto.setSuccess(true);
-        responseDto.setData("code have sent to your email address");
+        responseDto.setData(uuid);
         return responseDto;
     }
 
@@ -66,20 +70,21 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public ResponseDto verifyEmail(String uuid) {
+    public ResponseDto verifyEmail(String uuid, String code) {
         ResponseDto responseDto = new ResponseDto<>();
-        EmailVerification emailVerification = emailVerificationRepository.findEmailVerificationByVerificationKey(uuid);
-        if (Objects.nonNull(emailVerification)) {
-            User userObj = userRepository.findUserById(emailVerification.getUserId());
+        Optional<EmailVerification> emailVerification = emailVerificationRepository
+                .findByCodeAndVerificationKey(code, uuid);
+        if (emailVerification.isPresent()) {
+            User userObj = emailVerification.get().getUser();
             userObj.setIsVerified(true);
             userRepository.save(userObj);
+            emailVerificationRepository.deleteById(emailVerification.get().getId());
             responseDto.setSuccess(true);
-            responseDto.setData("Confirmed");
             return responseDto;
         }
         responseDto.setSuccess(false);
-        responseDto.setStatus(404);
-        responseDto.setErrorMessage("Not valid code");
+        responseDto.setStatus(ErrorConstants.NOT_FOUND);
+        responseDto.setErrorMessage("Not found");
         return responseDto;
     }
 }

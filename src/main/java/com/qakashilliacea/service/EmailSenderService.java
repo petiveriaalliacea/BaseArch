@@ -6,5 +6,5 @@ import com.qakashilliacea.web.dto.ResponseDto;
 import org.springframework.mail.SimpleMailMessage;
 
 public interface EmailSenderService {
-    void sendEmail(User user);
+    void sendEmail(User user, String uuid);
 }
