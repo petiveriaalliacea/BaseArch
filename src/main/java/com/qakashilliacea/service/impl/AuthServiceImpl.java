@@ -12,14 +12,14 @@ import com.qakashilliacea.service.AuthService;
 import com.qakashilliacea.service.EmailSenderService;
 import com.qakashilliacea.util.ExceptionAnswers;
 import com.qakashilliacea.util.ObjectsMapper;
-import com.qakashilliacea.web.dto.*;
+import com.qakashilliacea.web.dto.AuthResponseDto;
+import com.qakashilliacea.web.dto.LoginDto;
+import com.qakashilliacea.web.dto.RegisterDto;
+import com.qakashilliacea.web.dto.ResponseDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -28,9 +28,6 @@ public class AuthServiceImpl implements AuthService {
     private final RoleRepository roleRepository;
     private final EmailVerificationRepository emailVerificationRepository;
     private final EmailSenderService emailSenderService;
-
-    @Value("${email.address}")
-    private String EMAIL_ADDRESS;
 
     @Override
     public ResponseDto signUp(RegisterDto dto) {
@@ -45,16 +42,7 @@ public class AuthServiceImpl implements AuthService {
         user.getRoles().add(roleRepository.getById(Role.ROLE_USER));
         user.setIsVerified(false);
         user = userRepository.save(user);
-        EmailVerification emailVerification = new EmailVerification();
-        emailVerification.setVerificationKey(UUID.randomUUID().toString());
-        emailVerification.setUserId(user.getId());
-        emailVerificationRepository.save(emailVerification);
-        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-        simpleMailMessage.setSubject("Verify email address - ");
-        simpleMailMessage.setFrom(EMAIL_ADDRESS);
-        simpleMailMessage.setText("Your code to verify your email address " + emailVerification.getVerificationKey());
-        simpleMailMessage.setTo(user.getUsername());
-        emailSenderService.sendEmail(simpleMailMessage);
+        emailSenderService.sendEmail(user);
         responseDto.setSuccess(true);
         responseDto.setData("code have sent to your email address");
         return responseDto;
