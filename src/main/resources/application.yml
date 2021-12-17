@@ -1,6 +1,8 @@
 #file:
 #  upload-dir: D:\\JavaProjects\\Sulu\\images\\
 
+email:
+  address: basearchetype@gmail.com
 spring:
   datasource:
     url: jdbc:postgresql://base-archetype-test-postgres.postgres.database.azure.com:5432/test
@@ -20,6 +22,24 @@ spring:
       file-size-threshold: 2KB
       max-file-size: 15MB
       max-request-size: 15MB
+  mail:
+
+    host: imap.gmail.com
+    port: 465
+    username: basearchetype@gmail.com
+    password: Qqwerty1!
+    properties:
+
+      mail:
+        smtp:
+          ssl:
+            enable: true
+          starttls:
+            required: true
+          auth: true
+
+
+
 
 #  flyway:
 #    baseline-on-migrate: true

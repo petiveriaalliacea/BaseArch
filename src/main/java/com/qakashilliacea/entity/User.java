@@ -4,10 +4,7 @@ import com.qakashilliacea.entity.base.BaseEntity;
 import com.qakashilliacea.util.constants.Constants;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,7 +20,8 @@ public class User extends BaseEntity<Long> {
     private String username;
     @Column(name = "password", columnDefinition = "VARCHAR")
     private String password;
-
+    @Column(name = "verified_email")
+    private Boolean isVerified = false;
     @ManyToMany
     private Set<Role> roles = new HashSet<>();
 }
