@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+
     @Override
     public ResponseDto signUp(RegisterDto dto) {
         ResponseDto response = new ResponseDto<>();

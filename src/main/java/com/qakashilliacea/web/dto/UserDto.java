@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 @Builder
-@ApiModel(value = "UserDto", description = "Dto for user data")
+@ApiModel(value = "UserDto", description = "Dto for user info")
 public class UserDto {
     @ApiModelProperty(value = "Username", required = true)
     private String username;
