@@ -5,20 +5,23 @@ import com.qakashilliacea.entity.User;
 import com.qakashilliacea.respository.PublicationRepository;
 import com.qakashilliacea.respository.UserRepository;
 import com.qakashilliacea.service.PublicationService;
+import com.qakashilliacea.util.ErrorMessages;
 import com.qakashilliacea.util.ObjectsMapper;
-import com.qakashilliacea.web.dto.PublicationDto;
-import com.qakashilliacea.web.dto.PublicationInfoDto;
-import com.qakashilliacea.web.dto.ResponseDto;
+import com.qakashilliacea.util.PageUtils;
+import com.qakashilliacea.web.dto.*;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
-import static java.util.Objects.nonNull;
+import static com.qakashilliacea.util.constants.ErrorConstants.BAD_REQUEST;
+import static com.qakashilliacea.util.constants.ErrorConstants.NOT_FOUND;
+import static java.util.Objects.isNull;
 
 @Service
 @AllArgsConstructor
@@ -30,93 +33,85 @@ public class PublicationsImpl implements PublicationService {
     public ResponseDto create(PublicationDto publicationDto, Principal principal) {
         User userObj = userRepository.findByUsername(principal.getName());
         ResponseDto responseDto = new ResponseDto<PublicationInfoDto>();
-        if (nonNull(publicationDto.getDescription()) && nonNull(publicationDto.getDescription())) {
-            Publication publication = ObjectsMapper.convertPublicationCreatorToPublication(publicationDto);
-            publication.setCreatedAt(LocalDate.now());
-            publication.setViews(0);
-            publication.setUserId(userObj.getId());
-            publicationRepository.save(publication);
-            responseDto.setSuccess(true);
+
+        if (isNull(publicationDto.getDescription())) {
+            responseDto.setStatus(BAD_REQUEST);
+            responseDto.setErrorMessage(ErrorMessages.requiredFieldIsEmpty("description"));
             return responseDto;
         }
-        responseDto.setSuccess(false);
-        responseDto.setStatus(406);
-        responseDto.setErrorMessage("Not Acceptable");
+        if (isNull(publicationDto.getName())) {
+            responseDto.setStatus(BAD_REQUEST);
+            responseDto.setErrorMessage(ErrorMessages.requiredFieldIsEmpty("name"));
+            return responseDto;
+        }
+
+        Publication publication = ObjectsMapper.convertPublicationCreatorToPublication(publicationDto);
+        publication.setCreatedAt(LocalDate.now());
+        publication.setViews(0);
+        publication.setUserId(userObj.getId());
+        publicationRepository.save(publication);
+        responseDto.setSuccess(true);
+        responseDto.setData(ObjectsMapper.convertToPublicationDto(publication));
+
         return responseDto;
     }
 
     @Override
     public ResponseDto deleteById(Long id) {
         ResponseDto responseDto = new ResponseDto();
-        if (publicationRepository.findPublicationById(id).isPresent()) {
+        if (publicationRepository.findById(id).isPresent()) {
             publicationRepository.deleteById(id);
             responseDto.setSuccess(true);
             return responseDto;
+        } else {
+            responseDto.setSuccess(false);
+            responseDto.setStatus(NOT_FOUND);
+            responseDto.setErrorMessage(ErrorMessages.cantFindEntityById(Publication.class, id));
+            return responseDto;
         }
-        responseDto.setSuccess(false);
-        responseDto.setStatus(404);
-        responseDto.setErrorMessage("Not Found");
-        return responseDto;
     }
 
     @Override
     public ResponseDto getById(Long id) {
         ResponseDto responseDto = new ResponseDto();
-        if (publicationRepository.findPublicationById(id).isPresent()) {
-            Optional<Publication> publication = publicationRepository.findPublicationById(id);
-            PublicationInfoDto publicationInfoDto = ObjectsMapper.convertToPublicationDto(publication);
+        Optional<Publication> publication = publicationRepository.findById(id);
+        if (publication.isPresent()) {
+            PublicationInfoDto publicationInfoDto = ObjectsMapper.convertToPublicationDto(publication.get());
             responseDto.setData(publicationInfoDto);
             responseDto.setSuccess(true);
             return responseDto;
+        } else {
+            responseDto.setSuccess(false);
+            responseDto.setStatus(NOT_FOUND);
+            responseDto.setErrorMessage("Not Found");
+            return responseDto;
         }
-        responseDto.setSuccess(false);
-        responseDto.setStatus(404);
-        responseDto.setErrorMessage("Not Found");
-        return responseDto;
     }
 
     @Override
-    public ResponseDto getByUserId(Long userId) {
-        ResponseDto responseDto = new ResponseDto();
-        if (publicationRepository.findPublicationByUserId(userId).isPresent()) {
-            Optional<Publication> publication = publicationRepository.findPublicationByUserId(userId);
-            PublicationInfoDto publicationInfoDto = ObjectsMapper.convertToPublicationDto(publication);
-            responseDto.setData(publicationInfoDto);
-            responseDto.setSuccess(true);
-            return responseDto;
-        }
-        responseDto.setSuccess(false);
-        responseDto.setStatus(404);
-        responseDto.setErrorMessage("Not Found");
-        return responseDto;
+    public ResponseDto getAllByUserId(Long userId, PageableDto dto) {
+        Page<Publication> page = publicationRepository.findAllByUserId(userId, PageUtils.buildPageable(dto));
+        List<PublicationInfoDto> dtoList = page
+                .stream()
+                .map(ObjectsMapper::convertToPublicationDto)
+                .collect(Collectors.toList());
+
+        return ResponseDto.builder()
+                .success(true)
+                .data(new PageDto(page, dtoList))
+                .build();
     }
 
     @Override
     public ResponseDto findAll() {
         ResponseDto responseDto = new ResponseDto();
-        List<PublicationInfoDto> publicationInfoDtoList = new ArrayList<>();
-        for (Publication publication : publicationRepository.findAll()) {
-            PublicationInfoDto publicationInfoDto = ObjectsMapper.convertToPublic(publication);
-            publicationInfoDtoList.add(publicationInfoDto);
-        }
+        List<PublicationInfoDto> publicationInfoDtoList = publicationRepository.findAll()
+                .stream()
+                .map(ObjectsMapper::convertToPublicationDto)
+                .collect(Collectors.toList());
         responseDto.setSuccess(true);
         responseDto.setData(publicationInfoDtoList);
         return responseDto;
     }
 
-    @Override
-    public ResponseDto findByPublicationDate(LocalDate date) {
-        ResponseDto responseDto = new ResponseDto();
-        if (publicationRepository.findPublicationByCreatedAt(date).isPresent()) {
-            Optional<Publication> publication = publicationRepository.findPublicationByCreatedAt(date);
-            PublicationInfoDto publicationInfoDto = ObjectsMapper.convertToPublicationDto(publication);
-            responseDto.setData(publicationInfoDto);
-            responseDto.setSuccess(true);
-            return responseDto;
-        }
-        responseDto.setSuccess(false);
-        responseDto.setStatus(404);
-        responseDto.setErrorMessage("Not found");
-        return responseDto;
-    }
 }

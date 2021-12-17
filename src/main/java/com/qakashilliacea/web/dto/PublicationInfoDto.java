@@ -14,5 +14,5 @@ public class PublicationInfoDto {
     private String description;
     private LocalDate createdAt;
     private Integer views;
-    private UserDto userDto;
+    private Long userId;
 }

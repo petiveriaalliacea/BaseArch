@@ -1,7 +1,7 @@
 package com.qakashilliacea.entity;
 
 import com.qakashilliacea.entity.base.BaseEntity;
-import com.qakashilliacea.util.Constants;
+import com.qakashilliacea.util.constants.Constants;
 import lombok.*;
 
 import javax.persistence.Column;

@@ -5,7 +5,7 @@ import com.qakashilliacea.entity.User;
 import com.qakashilliacea.respository.EmailVerificationRepository;
 import com.qakashilliacea.respository.UserRepository;
 import com.qakashilliacea.service.UserService;
-import com.qakashilliacea.util.ExceptionAnswers;
+import com.qakashilliacea.util.ErrorMessages;
 import com.qakashilliacea.util.ObjectsMapper;
 import com.qakashilliacea.web.dto.ResponseDto;
 import com.qakashilliacea.web.dto.UserDto;
@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
         ResponseDto response = new ResponseDto<UserDto>();
         if (userRepository.existsByUsername(dto.getUsername())) {
             response.setStatus(400);
-            response.setErrorMessage(ExceptionAnswers.userWithLoginExists(dto.getUsername()));
+            response.setErrorMessage(ErrorMessages.userWithLoginExists(dto.getUsername()));
             return response;
         }
 
@@ -37,12 +37,12 @@ public class UserServiceImpl implements UserService {
         ResponseDto response = new ResponseDto<UserDto>();
         if (!userRepository.existsById(id)) {
             response.setStatus(404);
-            response.setErrorMessage(ExceptionAnswers.cantFindEntityById("User", id));
+            response.setErrorMessage(ErrorMessages.cantFindEntityById("User", id));
             return response;
         }
         if (userRepository.existsByUsername(dto.getUsername())) {
             response.setStatus(400);
-            response.setErrorMessage(ExceptionAnswers.userWithLoginExists(dto.getUsername()));
+            response.setErrorMessage(ErrorMessages.userWithLoginExists(dto.getUsername()));
             return response;
         }
 
@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
         ResponseDto response = new ResponseDto<UserDto>();
         if (!userRepository.existsById(id)) {
             response.setStatus(404);
-            response.setErrorMessage(ExceptionAnswers.cantFindEntityById("User", id));
+            response.setErrorMessage(ErrorMessages.cantFindEntityById("User", id));
             return response;
         }
 
@@ -81,7 +81,7 @@ public class UserServiceImpl implements UserService {
         ResponseDto response = new ResponseDto<UserDto>();
         if (!userRepository.existsById(id)) {
             response.setStatus(404);
-            response.setErrorMessage(ExceptionAnswers.cantFindEntityById("User", id));
+            response.setErrorMessage(ErrorMessages.cantFindEntityById("User", id));
             return response;
         }
         EmailVerification emailVerification = emailVerificationRepository.findEmailVerificationByUserId(id);

@@ -40,11 +40,6 @@ public class ObjectsMapper {
                 .build();
     }
 
-    public static PublicationInfoDto convertToPublicationDto(Optional<Publication> publication) {
-        return PublicationInfoDto.builder().id(publication.get().getId()).name(publication.get().getName())
-                .description(publication.get().getDescription()).createdAt(publication.get().getCreatedAt())
-                .views(publication.get().getViews()).userDto(convertToUserDtoWithoutPass(publication.get().getUser())).build();
-    }
 
     public static Publication convertToPublication(PublicationInfoDto publicationInfoDto) {
         return Publication.builder().name(publicationInfoDto.getName())
@@ -56,10 +51,15 @@ public class ObjectsMapper {
                 .description(publicationDto.getDescription()).build();
     }
 
-    public static PublicationInfoDto convertToPublic(Publication publication) {
-        return PublicationInfoDto.builder().id(publication.getId()).name(publication.getName())
-                .description(publication.getDescription()).createdAt(publication.getCreatedAt())
-                .views(publication.getViews()).userDto(convertToUserDtoWithoutPass(publication.getUser())).build();
+    public static PublicationInfoDto convertToPublicationDto(Publication publication) {
+        return PublicationInfoDto.builder()
+                .id(publication.getId())
+                .name(publication.getName())
+                .description(publication.getDescription())
+                .createdAt(publication.getCreatedAt())
+                .views(publication.getViews())
+                .userId(publication.getUserId())
+                .build();
     }
 
     public static UserDto convertToUserDtoWithoutPass(User user) {

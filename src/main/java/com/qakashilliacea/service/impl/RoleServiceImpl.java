@@ -2,7 +2,7 @@ package com.qakashilliacea.service.impl;
 
 import com.qakashilliacea.respository.RoleRepository;
 import com.qakashilliacea.service.RoleService;
-import com.qakashilliacea.util.ExceptionAnswers;
+import com.qakashilliacea.util.ErrorMessages;
 import com.qakashilliacea.util.ObjectsMapper;
 import com.qakashilliacea.web.dto.ResponseDto;
 import com.qakashilliacea.web.dto.UserDto;
@@ -34,7 +34,7 @@ public class RoleServiceImpl implements RoleService {
         ResponseDto response = new ResponseDto<UserDto>();
         if (!roleRepository.existsById(id)) {
             response.setStatus(404);
-            response.setErrorMessage(ExceptionAnswers.cantFindEntityById("Role", id));
+            response.setErrorMessage(ErrorMessages.cantFindEntityById("Role", id));
             return response;
         }
         response.setSuccess(true);
