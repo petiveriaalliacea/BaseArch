@@ -2,8 +2,7 @@
 #  upload-dir: D:\\JavaProjects\\Sulu\\images\\
 
 email:
-  address: 201239@astanait.edu.kz
-
+  address: basearchetype@gmail.com
 spring:
   datasource:
     url: jdbc:postgresql://base-archetype-test-postgres.postgres.database.azure.com:5432/test
@@ -24,16 +23,21 @@ spring:
       max-file-size: 15MB
       max-request-size: 15MB
   mail:
-    host: smtp.office365.com
-    port: 587
-    username: 201239@astanait.edu.kz
-    password: 254958erA@
+
+    host: imap.gmail.com
+    port: 465
+    username: basearchetype@gmail.com
+    password: Qqwerty1!
     properties:
+
       mail:
         smtp:
+          ssl:
+            enable: true
           starttls:
             required: true
           auth: true
+
 
 
 
