@@ -40,24 +40,24 @@ public class ObjectsMapper {
                 .build();
     }
 
-    public static PublicationDto convertToPublicationDto(Optional<Publication> publication) {
-        return PublicationDto.builder().id(publication.get().getId()).name(publication.get().getName())
+    public static PublicationInfoDto convertToPublicationDto(Optional<Publication> publication) {
+        return PublicationInfoDto.builder().id(publication.get().getId()).name(publication.get().getName())
                 .description(publication.get().getDescription()).createdAt(publication.get().getCreatedAt())
                 .views(publication.get().getViews()).userDto(convertToUserDtoWithoutPass(publication.get().getUser())).build();
     }
 
-    public static Publication convertToPublication(PublicationDto publicationDto) {
+    public static Publication convertToPublication(PublicationInfoDto publicationInfoDto) {
+        return Publication.builder().name(publicationInfoDto.getName())
+                .description(publicationInfoDto.getDescription()).build();
+    }
+
+    public static Publication convertPublicationCreatorToPublication(PublicationDto publicationDto) {
         return Publication.builder().name(publicationDto.getName())
                 .description(publicationDto.getDescription()).build();
     }
 
-    public static Publication convertPublicationCreatorToPublication(PublicationCreatorDto publicationCreatorDto) {
-        return Publication.builder().name(publicationCreatorDto.getName())
-                .description(publicationCreatorDto.getDescription()).build();
-    }
-
-    public static PublicationDto convertToPublic(Publication publication) {
-        return PublicationDto.builder().id(publication.getId()).name(publication.getName())
+    public static PublicationInfoDto convertToPublic(Publication publication) {
+        return PublicationInfoDto.builder().id(publication.getId()).name(publication.getName())
                 .description(publication.getDescription()).createdAt(publication.getCreatedAt())
                 .views(publication.getViews()).userDto(convertToUserDtoWithoutPass(publication.getUser())).build();
     }

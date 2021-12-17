@@ -1,18 +1,13 @@
 package com.qakashilliacea.web.dto;
 
 import io.swagger.annotations.ApiModel;
-import lombok.*;
-
-import java.time.LocalDate;
+import lombok.Builder;
+import lombok.Data;
 
 @Data
 @Builder
-@ApiModel(value = "Dto for publications")
+@ApiModel(value = "PublicationDto", description = "gets name , description to create publication")
 public class PublicationDto {
-    private Long id;
     private String name;
     private String description;
-    private LocalDate createdAt;
-    private Integer views;
-    private UserDto userDto;
 }
