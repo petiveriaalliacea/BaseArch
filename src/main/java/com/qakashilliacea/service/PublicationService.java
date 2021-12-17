@@ -1,6 +1,6 @@
 package com.qakashilliacea.service;
 
-import com.qakashilliacea.web.dto.PublicationCreatorDto;
+import com.qakashilliacea.web.dto.PublicationDto;
 import com.qakashilliacea.web.dto.ResponseDto;
 
 import java.security.Principal;
@@ -17,5 +17,5 @@ public interface PublicationService {
 
     ResponseDto deleteById(Long id);
 
-    ResponseDto create(PublicationCreatorDto publication, Principal principal);
+    ResponseDto create(PublicationDto publication, Principal principal);
 }

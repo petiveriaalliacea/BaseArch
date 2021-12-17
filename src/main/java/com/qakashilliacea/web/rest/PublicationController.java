@@ -1,7 +1,7 @@
 package com.qakashilliacea.web.rest;
 
 import com.qakashilliacea.service.PublicationService;
-import com.qakashilliacea.web.dto.PublicationCreatorDto;
+import com.qakashilliacea.web.dto.PublicationDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -19,7 +19,7 @@ import java.time.LocalDate;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/public/publications")
-@ApiModel(value = "Publication Controller", description = "Publications data controller")
+@ApiModel(value = "PublicationController", description = "Publications data controller")
 public class PublicationController {
     private final PublicationService publicationService;
 
@@ -59,8 +59,8 @@ public class PublicationController {
     @PostMapping("/create")
     @ApiOperation(value = "create publication")
     public ResponseEntity createPublication(@ApiIgnore @Autowired Principal principal,
-                                            @ApiParam(value = "dto to create publication") @RequestBody PublicationCreatorDto
-                                                    publicationCreatorDto) {
-        return ResponseEntity.ok(publicationService.create(publicationCreatorDto, principal));
+                                            @ApiParam(value = "dto to create publication") @RequestBody PublicationDto
+                                                    publicationDto) {
+        return ResponseEntity.ok(publicationService.create(publicationDto, principal));
     }
 }

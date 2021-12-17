@@ -27,7 +27,7 @@ public class AuthController {
     }
 
     @PostMapping("/signIn")
-    @ApiOperation(value = "login process")
+    @ApiOperation(value = "Login process")
     public ResponseEntity signIn(@ApiParam(value = "dto with login data") @RequestBody LoginDto dto) {
         return ResponseEntity.ok(authService.signIn(dto));
     }

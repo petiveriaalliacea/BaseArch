@@ -1,17 +1,15 @@
 package com.qakashilliacea.service.impl;
 
-import com.qakashilliacea.config.security.PrincipalImpl;
 import com.qakashilliacea.entity.Publication;
 import com.qakashilliacea.entity.User;
 import com.qakashilliacea.respository.PublicationRepository;
 import com.qakashilliacea.respository.UserRepository;
 import com.qakashilliacea.service.PublicationService;
 import com.qakashilliacea.util.ObjectsMapper;
-import com.qakashilliacea.web.dto.PublicationCreatorDto;
 import com.qakashilliacea.web.dto.PublicationDto;
+import com.qakashilliacea.web.dto.PublicationInfoDto;
 import com.qakashilliacea.web.dto.ResponseDto;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
@@ -29,11 +27,11 @@ public class PublicationsImpl implements PublicationService {
     private final PublicationRepository publicationRepository;
 
     @Override
-    public ResponseDto create(PublicationCreatorDto publicationCreatorDto, Principal principal) {
+    public ResponseDto create(PublicationDto publicationDto, Principal principal) {
         User userObj = userRepository.findByUsername(principal.getName());
-        ResponseDto responseDto = new ResponseDto<PublicationDto>();
-        if (nonNull(publicationCreatorDto.getDescription()) && nonNull(publicationCreatorDto.getDescription())) {
-            Publication publication = ObjectsMapper.convertPublicationCreatorToPublication(publicationCreatorDto);
+        ResponseDto responseDto = new ResponseDto<PublicationInfoDto>();
+        if (nonNull(publicationDto.getDescription()) && nonNull(publicationDto.getDescription())) {
+            Publication publication = ObjectsMapper.convertPublicationCreatorToPublication(publicationDto);
             publication.setCreatedAt(LocalDate.now());
             publication.setViews(0);
             publication.setUserId(userObj.getId());
@@ -66,8 +64,8 @@ public class PublicationsImpl implements PublicationService {
         ResponseDto responseDto = new ResponseDto();
         if (publicationRepository.findPublicationById(id).isPresent()) {
             Optional<Publication> publication = publicationRepository.findPublicationById(id);
-            PublicationDto publicationDto = ObjectsMapper.convertToPublicationDto(publication);
-            responseDto.setData(publicationDto);
+            PublicationInfoDto publicationInfoDto = ObjectsMapper.convertToPublicationDto(publication);
+            responseDto.setData(publicationInfoDto);
             responseDto.setSuccess(true);
             return responseDto;
         }
@@ -82,8 +80,8 @@ public class PublicationsImpl implements PublicationService {
         ResponseDto responseDto = new ResponseDto();
         if (publicationRepository.findPublicationByUserId(userId).isPresent()) {
             Optional<Publication> publication = publicationRepository.findPublicationByUserId(userId);
-            PublicationDto publicationDto = ObjectsMapper.convertToPublicationDto(publication);
-            responseDto.setData(publicationDto);
+            PublicationInfoDto publicationInfoDto = ObjectsMapper.convertToPublicationDto(publication);
+            responseDto.setData(publicationInfoDto);
             responseDto.setSuccess(true);
             return responseDto;
         }
@@ -96,13 +94,13 @@ public class PublicationsImpl implements PublicationService {
     @Override
     public ResponseDto findAll() {
         ResponseDto responseDto = new ResponseDto();
-        List<PublicationDto> publicationDtoList = new ArrayList<>();
+        List<PublicationInfoDto> publicationInfoDtoList = new ArrayList<>();
         for (Publication publication : publicationRepository.findAll()) {
-            PublicationDto publicationDto = ObjectsMapper.convertToPublic(publication);
-            publicationDtoList.add(publicationDto);
+            PublicationInfoDto publicationInfoDto = ObjectsMapper.convertToPublic(publication);
+            publicationInfoDtoList.add(publicationInfoDto);
         }
         responseDto.setSuccess(true);
-        responseDto.setData(publicationDtoList);
+        responseDto.setData(publicationInfoDtoList);
         return responseDto;
     }
 
@@ -111,8 +109,8 @@ public class PublicationsImpl implements PublicationService {
         ResponseDto responseDto = new ResponseDto();
         if (publicationRepository.findPublicationByCreatedAt(date).isPresent()) {
             Optional<Publication> publication = publicationRepository.findPublicationByCreatedAt(date);
-            PublicationDto publicationDto = ObjectsMapper.convertToPublicationDto(publication);
-            responseDto.setData(publicationDto);
+            PublicationInfoDto publicationInfoDto = ObjectsMapper.convertToPublicationDto(publication);
+            responseDto.setData(publicationInfoDto);
             responseDto.setSuccess(true);
             return responseDto;
         }
