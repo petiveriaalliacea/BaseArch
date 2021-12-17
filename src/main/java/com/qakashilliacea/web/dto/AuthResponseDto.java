@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @Builder
-@ApiModel(value = "Dto to return auth token")
+@ApiModel(value = "AuthResponseDto", description = "returns access token")
 public class AuthResponseDto {
     private String accessToken;
 }
