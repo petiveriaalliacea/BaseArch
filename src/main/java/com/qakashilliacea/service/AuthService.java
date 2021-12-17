@@ -8,4 +8,6 @@ public interface AuthService {
     ResponseDto signUp(RegisterDto dto);
 
     ResponseDto signIn(LoginDto dto);
+
+    ResponseDto verifyEmail(String uuid);
 }

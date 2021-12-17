@@ -1,6 +1,8 @@
 package com.qakashilliacea.service.impl;
 
+import com.qakashilliacea.entity.EmailVerification;
 import com.qakashilliacea.entity.User;
+import com.qakashilliacea.respository.EmailVerificationRepository;
 import com.qakashilliacea.respository.UserRepository;
 import com.qakashilliacea.service.UserService;
 import com.qakashilliacea.util.ExceptionAnswers;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    private final EmailVerificationRepository emailVerificationRepository;
 
     @Override
     public ResponseDto createUser(UserDto dto) {
@@ -81,7 +84,8 @@ public class UserServiceImpl implements UserService {
             response.setErrorMessage(ExceptionAnswers.cantFindEntityById("User", id));
             return response;
         }
-
+        EmailVerification emailVerification = emailVerificationRepository.findEmailVerificationByUserId(id);
+        emailVerificationRepository.deleteById(emailVerification.getId());
         UserDto dto = ObjectsMapper.converToUserDto(userRepository.getById(id));
         userRepository.deleteById(id);
         response.setSuccess(true);

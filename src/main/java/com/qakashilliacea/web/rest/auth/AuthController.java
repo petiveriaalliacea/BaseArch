@@ -8,10 +8,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/public/auth")
@@ -30,5 +27,12 @@ public class AuthController {
     @ApiOperation(value = "Login process")
     public ResponseEntity signIn(@ApiParam(value = "dto with login data") @RequestBody LoginDto dto) {
         return ResponseEntity.ok(authService.signIn(dto));
+    }
+
+    @PostMapping("/verifyEmailAddress/{uuid}")
+    @ApiOperation(value = "verification process")
+    public ResponseEntity verify(@ApiParam(value = "code which have sent to email address")
+                                 @PathVariable("uuid") String uuid) {
+        return ResponseEntity.ok(authService.verifyEmail(uuid));
     }
 }

@@ -1,6 +1,9 @@
 #file:
 #  upload-dir: D:\\JavaProjects\\Sulu\\images\\
 
+email:
+  address: 201239@astanait.edu.kz
+
 spring:
   datasource:
     url: jdbc:postgresql://base-archetype-test-postgres.postgres.database.azure.com:5432/test
@@ -20,6 +23,19 @@ spring:
       file-size-threshold: 2KB
       max-file-size: 15MB
       max-request-size: 15MB
+  mail:
+    host: smtp.office365.com
+    port: 587
+    username: 201239@astanait.edu.kz
+    password: 254958erA@
+    properties:
+      mail:
+        smtp:
+          starttls:
+            required: true
+          auth: true
+
+
 
 #  flyway:
 #    baseline-on-migrate: true
