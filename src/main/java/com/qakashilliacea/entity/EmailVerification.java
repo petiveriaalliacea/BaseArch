@@ -1,12 +1,13 @@
 package com.qakashilliacea.entity;
 
 import com.qakashilliacea.entity.base.BaseEntity;
+import com.qakashilliacea.util.constants.Constants;
 import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "email_verification")
+@Table(name = Constants.DATABASE_PREFIX + "email_verification")
 @Getter
 @Setter
 @Builder

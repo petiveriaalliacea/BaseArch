@@ -1,5 +1,8 @@
 package com.qakashilliacea.util;
 
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
 public class ErrorMessages {
     public static String userWithLoginExists(String login) {
         return "User with username=" + login + " already exists";
@@ -23,8 +26,5 @@ public class ErrorMessages {
 
     public static String requiredFieldIsEmpty(String fieldName) {
         return "Field " + fieldName + " is required";
-    }
-
-    private ErrorMessages() {
     }
 }

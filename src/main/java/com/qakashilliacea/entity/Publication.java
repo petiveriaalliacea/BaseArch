@@ -1,13 +1,14 @@
 package com.qakashilliacea.entity;
 
 import com.qakashilliacea.entity.base.BaseEntity;
+import com.qakashilliacea.util.constants.Constants;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "publications")
+@Table(name = Constants.DATABASE_PREFIX + "publications")
 @Getter
 @Setter
 @Builder

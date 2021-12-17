@@ -1,6 +1,7 @@
 package com.qakashilliacea.web.rest;
 
 import com.qakashilliacea.service.RoleService;
+import com.qakashilliacea.util.constants.Constants;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -11,9 +12,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.qakashilliacea.util.constants.Constants.ADMIN_API_ENDPOINT;
+
 @RestController
 @AllArgsConstructor
-@RequestMapping("/public/role")
+@RequestMapping(ADMIN_API_ENDPOINT + "/role")
 @ApiModel(value = "RoleController", description = "Role retrieve data controller")
 public class RoleController {
     private final RoleService roleService;

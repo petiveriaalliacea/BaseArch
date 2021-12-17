@@ -4,12 +4,11 @@ import com.qakashilliacea.entity.Publication;
 import com.qakashilliacea.entity.Role;
 import com.qakashilliacea.entity.User;
 import com.qakashilliacea.web.dto.*;
-import org.springframework.stereotype.Component;
+import lombok.experimental.UtilityClass;
 
 import java.util.HashSet;
-import java.util.Optional;
 
-@Component
+@UtilityClass
 public class ObjectsMapper {
     public static User converToUser(UserDto dto) {
         return User.builder()

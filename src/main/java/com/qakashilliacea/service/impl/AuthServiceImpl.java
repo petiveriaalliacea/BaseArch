@@ -57,7 +57,7 @@ public class AuthServiceImpl implements AuthService {
             response.setErrorMessage(ErrorMessages.userNotFoundByUsername(dto.getUsername()));
             return response;
         }
-        User user = userRepository.findByUsername(dto.getUsername());
+        User user = userRepository.findByUsername(dto.getUsername()).get();
         if (!PasswordEncoder.verifyPassword(dto.getPassword(), user.getPassword())) {
             response.setStatus(400);
             response.setErrorMessage(ErrorMessages.incorrectPassword());

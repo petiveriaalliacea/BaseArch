@@ -1,6 +1,7 @@
 package com.qakashilliacea.web.rest.auth;
 
 import com.qakashilliacea.service.AuthService;
+import com.qakashilliacea.util.constants.Constants;
 import com.qakashilliacea.web.dto.LoginDto;
 import com.qakashilliacea.web.dto.RegisterDto;
 import io.swagger.annotations.ApiModel;
@@ -10,8 +11,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static com.qakashilliacea.util.constants.Constants.PUBLIC_API_ENDPOINT;
+
 @RestController
-@RequestMapping("/public/auth")
+@RequestMapping(PUBLIC_API_ENDPOINT + "/auth")
 @RequiredArgsConstructor
 @ApiModel(value = "AuthController", description = "Authentication Controller , user registration and login processes")
 public class AuthController {

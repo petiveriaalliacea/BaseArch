@@ -1,6 +1,7 @@
 package com.qakashilliacea.web.rest;
 
 import com.qakashilliacea.service.PublicationService;
+import com.qakashilliacea.util.constants.Constants;
 import com.qakashilliacea.web.dto.PageableDto;
 import com.qakashilliacea.web.dto.PublicationDto;
 import io.swagger.annotations.ApiModel;
@@ -15,9 +16,11 @@ import springfox.documentation.annotations.ApiIgnore;
 import javax.transaction.Transactional;
 import java.security.Principal;
 
+import static com.qakashilliacea.util.constants.Constants.PRIVATE_API_ENDPOINT;
+
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/public/publications")
+@RequestMapping(PRIVATE_API_ENDPOINT + "/publications")
 @ApiModel(value = "PublicationController", description = "Publications data controller")
 public class PublicationController {
     private final PublicationService publicationService;

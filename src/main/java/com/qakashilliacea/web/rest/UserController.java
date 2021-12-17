@@ -1,6 +1,7 @@
 package com.qakashilliacea.web.rest;
 
 import com.qakashilliacea.service.UserService;
+import com.qakashilliacea.util.constants.Constants;
 import com.qakashilliacea.web.dto.UserDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
@@ -9,8 +10,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import static com.qakashilliacea.util.constants.Constants.ADMIN_API_ENDPOINT;
+
 @RestController
-@RequestMapping("/public/user")
+@RequestMapping(ADMIN_API_ENDPOINT + "/user")
 @AllArgsConstructor
 @ApiModel(value = "UserController", description = "User data controller")
 public class UserController {

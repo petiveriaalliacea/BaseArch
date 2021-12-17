@@ -31,7 +31,7 @@ public class PublicationsImpl implements PublicationService {
 
     @Override
     public ResponseDto create(PublicationDto publicationDto, Principal principal) {
-        User userObj = userRepository.findByUsername(principal.getName());
+        User userObj = userRepository.findByUsername(principal.getName()).get();
         ResponseDto responseDto = new ResponseDto<PublicationInfoDto>();
 
         if (isNull(publicationDto.getDescription())) {
