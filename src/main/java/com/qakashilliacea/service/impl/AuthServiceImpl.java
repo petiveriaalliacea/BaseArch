@@ -15,6 +15,8 @@ import com.qakashilliacea.util.ObjectsMapper;
 import com.qakashilliacea.util.constants.ErrorConstants;
 import com.qakashilliacea.web.dto.*;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -28,6 +30,8 @@ public class AuthServiceImpl implements AuthService {
     private final RoleRepository roleRepository;
     private final EmailVerificationRepository emailVerificationRepository;
     private final EmailSenderService emailSenderService;
+
+    private static Logger log = LoggerFactory.getLogger(AuthServiceImpl.class);
 
     @Override
     public ResponseDto signUp(RegisterDto dto) {
