@@ -5,6 +5,7 @@ import com.qakashilliacea.entity.User;
 import com.qakashilliacea.respository.EmailVerificationRepository;
 import com.qakashilliacea.service.EmailSenderService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -14,6 +15,7 @@ import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class EmailSenderServiceImpl implements EmailSenderService {
     private final JavaMailSender javaMailSender;
     private final EmailVerificationRepository emailVerificationRepository;
@@ -34,6 +36,7 @@ public class EmailSenderServiceImpl implements EmailSenderService {
         simpleMailMessage.setText("Your code to verify your email address " + emailVerification.getCode());
         simpleMailMessage.setTo(user.getUsername());
         javaMailSender.send(simpleMailMessage);
+        log.info("code have sent to email address - {}", user.getUsername());
     }
 
     private String getRandomCode() {

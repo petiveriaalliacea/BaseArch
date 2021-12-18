@@ -13,11 +13,13 @@ import com.qakashilliacea.service.EmailSenderService;
 import com.qakashilliacea.util.ErrorMessages;
 import com.qakashilliacea.util.ObjectsMapper;
 import com.qakashilliacea.util.constants.ErrorConstants;
-import com.qakashilliacea.web.dto.*;
+import com.qakashilliacea.web.dto.AuthResponseDto;
+import com.qakashilliacea.web.dto.LoginDto;
+import com.qakashilliacea.web.dto.RegisterDto;
+import com.qakashilliacea.web.dto.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
