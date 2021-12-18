@@ -60,6 +60,7 @@ public class ObjectsMapper {
                 .createdAt(publication.getCreatedAt())
                 .views(publication.getViews())
                 .userId(publication.getUserId())
+                .amountOfLikes(publication.getAmountOfLikes())
                 .build();
     }
 

@@ -49,5 +49,5 @@ jobs:
         with:
           app-name: 'BaseArchetypeTest'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F2B2D05889364EC6B63AAEDBC73BAE79 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0D4BD86CDF54467B8A0F195BE92ACE8D }}
           package: '*.jar'

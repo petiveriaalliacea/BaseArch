@@ -27,6 +27,10 @@ public class Publication extends BaseEntity<Long> {
     @Column(name = "views")
     private Integer views;
 
+    @Column(name = "likes")
+    @Builder.Default
+    private Integer amountOfLikes = 0;
+
     @Column(name = "user_id")
     private Long userId;
 

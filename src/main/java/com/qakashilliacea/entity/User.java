@@ -14,6 +14,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Table(name = Constants.DATABASE_PREFIX + "user")
 public class User extends BaseEntity<Long> {
     @Column(name = "username", columnDefinition = "VARCHAR")
