@@ -58,4 +58,24 @@ public class PublicationController {
                                             @ApiParam(value = "dto to create publication") @RequestBody PublicationDto publicationDto) {
         return ResponseEntity.ok(publicationService.create(publicationDto, principal));
     }
+
+    @PostMapping("/getAllPageableByDate")
+    @ApiOperation(value = "get all pageable objects by date")
+    public ResponseEntity getAllPageableByDate(@ApiParam(value = "PageRequestDto") @RequestBody PageableDto dto) {
+        return ResponseEntity.ok(publicationService.getAllPageableByDate(dto));
+    }
+
+    @PostMapping("/getAllPageableByUserId/{userId}")
+    @ApiOperation(value = "get all pageable objects by user id")
+    public ResponseEntity getAllPageableByUserId(@ApiParam(value = "user id") @PathVariable("userId") Long userId,
+                                                 @ApiParam(value = "PageRequestDto") @RequestBody PageableDto dto) {
+        return ResponseEntity.ok(publicationService.getAllPageableByUserId(userId, dto));
+    }
+
+    @PostMapping("/getAllPageableByType/{type}")
+    @ApiOperation(value = "get all pageable object by publication type")
+    public ResponseEntity getAllPageAbleByType(@ApiParam(value = "publication type") @PathVariable("type") String type,
+                                               @ApiParam(value = "PageRequestDto") @RequestBody PageableDto dto) {
+        return ResponseEntity.ok(publicationService.getAllPageableByPublicationType(type, dto));
+    }
 }

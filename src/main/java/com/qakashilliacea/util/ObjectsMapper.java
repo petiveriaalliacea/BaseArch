@@ -47,7 +47,7 @@ public class ObjectsMapper {
 
     public static Publication convertPublicationCreatorToPublication(PublicationDto publicationDto) {
         return Publication.builder().name(publicationDto.getName())
-                .description(publicationDto.getDescription()).build();
+                .description(publicationDto.getDescription()).typeId(publicationDto.getTypeId()).build();
     }
 
     public static PublicationInfoDto convertToPublicationDto(Publication publication) {
@@ -59,6 +59,7 @@ public class ObjectsMapper {
                 .views(publication.getViews())
                 .userId(publication.getUserId())
                 .amountOfLikes(publication.getAmountOfLikes())
+                .typeId(publication.getTypeId())
                 .build();
     }
 

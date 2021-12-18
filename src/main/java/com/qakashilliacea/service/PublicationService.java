@@ -16,4 +16,10 @@ public interface PublicationService {
     ResponseDto deleteById(Long id);
 
     ResponseDto create(PublicationDto publication, Principal principal);
+
+    ResponseDto getAllPageableByDate(PageableDto dto);
+
+    ResponseDto getAllPageableByPublicationType(String type, PageableDto dto);
+
+    ResponseDto getAllPageableByUserId(Long userId, PageableDto dto);
 }
