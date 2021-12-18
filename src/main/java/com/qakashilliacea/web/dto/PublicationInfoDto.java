@@ -14,5 +14,6 @@ public class PublicationInfoDto {
     private String description;
     private LocalDate createdAt;
     private Integer views;
+    private Integer amountOfLikes;
     private Long userId;
 }
