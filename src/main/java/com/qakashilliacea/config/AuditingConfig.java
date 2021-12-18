@@ -14,7 +14,7 @@ import java.util.Optional;
 import java.time.LocalDateTime;
 
 @Configuration
-@EnableJpaAuditing
+@EnableJpaAuditing(auditorAwareRef = "auditorProvider", dateTimeProviderRef = "auditingDateTimeProvider")
 @EnableTransactionManagement
 @RequiredArgsConstructor
 public class AuditingConfig {
