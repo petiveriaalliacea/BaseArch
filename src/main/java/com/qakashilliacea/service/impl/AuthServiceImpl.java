@@ -31,8 +31,6 @@ public class AuthServiceImpl implements AuthService {
     private final EmailVerificationRepository emailVerificationRepository;
     private final EmailSenderService emailSenderService;
 
-    private static Logger log = LoggerFactory.getLogger(AuthServiceImpl.class);
-
     @Override
     public ResponseDto signUp(RegisterDto dto) {
         ResponseDto responseDto = new ResponseDto<>();
