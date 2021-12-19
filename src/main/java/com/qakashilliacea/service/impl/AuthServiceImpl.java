@@ -1,26 +1,28 @@
 package com.qakashilliacea.service.impl;
 
+import com.google.common.collect.Sets;
 import com.qakashilliacea.config.security.JwtCoder;
 import com.qakashilliacea.config.security.PasswordEncoder;
 import com.qakashilliacea.entity.EmailVerification;
 import com.qakashilliacea.entity.Role;
 import com.qakashilliacea.entity.User;
+import com.qakashilliacea.entity.UserDetailedInfo;
 import com.qakashilliacea.respository.EmailVerificationRepository;
 import com.qakashilliacea.respository.RoleRepository;
+import com.qakashilliacea.respository.UserDetailedInfoRepository;
 import com.qakashilliacea.respository.UserRepository;
 import com.qakashilliacea.service.AuthService;
 import com.qakashilliacea.service.EmailSenderService;
 import com.qakashilliacea.util.ErrorMessages;
 import com.qakashilliacea.util.ObjectsMapper;
 import com.qakashilliacea.util.constants.ErrorConstants;
-import com.qakashilliacea.web.dto.AuthResponseDto;
-import com.qakashilliacea.web.dto.LoginDto;
-import com.qakashilliacea.web.dto.RegisterDto;
-import com.qakashilliacea.web.dto.ResponseDto;
+import com.qakashilliacea.web.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -30,9 +32,10 @@ public class AuthServiceImpl implements AuthService {
     private final RoleRepository roleRepository;
     private final EmailVerificationRepository emailVerificationRepository;
     private final EmailSenderService emailSenderService;
+    private final UserDetailedInfoRepository userDetailedInfoRepository;
 
     @Override
-    public ResponseDto signUp(RegisterDto dto) {
+    public ResponseDto signUp(UserRegistrationInfoDto dto) {
         ResponseDto responseDto = new ResponseDto<>();
         if (userRepository.existsByUsername(dto.getUsername())) {
             responseDto.setStatus(400);
@@ -40,10 +43,15 @@ public class AuthServiceImpl implements AuthService {
             return responseDto;
         }
         dto.setPassword(PasswordEncoder.encode(dto.getPassword()));
-        User user = ObjectsMapper.converToUser(dto);
-        user.getRoles().add(roleRepository.getById(Role.ROLE_USER));
-        user.setIsVerified(false);
+        User user = User.builder()
+                .password(dto.getPassword())
+                .username(dto.getUsername())
+                .roles(Sets.newHashSet(roleRepository.getById(Role.ROLE_USER)))
+                .isVerified(false).build();
         user = userRepository.save(user);
+        UserDetailedInfo userDetailedInfo = ObjectsMapper.convertToUserDetailedInfo(dto);
+        userDetailedInfo.setUser(user);
+        userDetailedInfoRepository.save(userDetailedInfo);
         String uuid = UUID.randomUUID().toString();
         emailSenderService.sendEmail(user, uuid);
         responseDto.setSuccess(true);

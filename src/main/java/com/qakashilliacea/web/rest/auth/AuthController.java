@@ -4,6 +4,8 @@ import com.qakashilliacea.service.AuthService;
 import com.qakashilliacea.util.constants.Constants;
 import com.qakashilliacea.web.dto.LoginDto;
 import com.qakashilliacea.web.dto.RegisterDto;
+import com.qakashilliacea.web.dto.UserDetailedInfoDto;
+import com.qakashilliacea.web.dto.UserRegistrationInfoDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -22,7 +24,7 @@ public class AuthController {
 
     @PostMapping("/signUp")
     @ApiOperation(value = "Registration process")
-    public ResponseEntity signUp(@ApiParam(value = "dto with register data") @RequestBody RegisterDto dto) {
+    public ResponseEntity signUp(@ApiParam(value = "dto with register data") @RequestBody UserRegistrationInfoDto dto) {
         return ResponseEntity.ok(authService.signUp(dto));
     }
 

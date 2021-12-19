@@ -3,6 +3,7 @@ package com.qakashilliacea.util;
 import com.qakashilliacea.entity.Publication;
 import com.qakashilliacea.entity.Role;
 import com.qakashilliacea.entity.User;
+import com.qakashilliacea.entity.UserDetailedInfo;
 import com.qakashilliacea.web.dto.*;
 import lombok.experimental.UtilityClass;
 
@@ -65,5 +66,33 @@ public class ObjectsMapper {
 
     public static UserDto convertToUserDtoWithoutPass(User user) {
         return UserDto.builder().username(user.getUsername()).build();
+    }
+
+    public static UserDetailedInfo convertToUserDetailedInfo(UserRegistrationInfoDto dto) {
+        return UserDetailedInfo.builder()
+                .firstname(dto.getFirstname())
+                .lastname(dto.getLastname())
+                .patronymic(dto.getPatronymic())
+                .phone(dto.getPhone())
+                .country(dto.getCountry())
+                .username(dto.getUsername())
+                .birth(dto.getBirth())
+                .sex(dto.getSex())
+                .about(dto.getAbout())
+                .job(dto.getJob()).build();
+    }
+
+    public static UserDetailedInfoDto convertToUserDetailedInfoDto(UserDetailedInfo dao) {
+        return UserDetailedInfoDto.builder()
+                .firstname(dao.getFirstname())
+                .lastname(dao.getLastname())
+                .patronymic(dao.getPatronymic())
+                .phone(dao.getPhone())
+                .country(dao.getCountry())
+                .username(dao.getUsername())
+                .birth(dao.getBirth())
+                .sex(dao.getSex())
+                .about(dao.getAbout())
+                .job(dao.getJob()).build();
     }
 }
