@@ -35,6 +35,7 @@ public class UserDetailedInfoImpl implements UserDetailedInfoService {
             Optional<UserDetailedInfo> userDetailedInfo = detailedInfoRepository.findByUser(user.get());
             if (userDetailedInfo.isPresent()) {
                 UserDetailedInfoDto userDetailedInfoDto = ObjectsMapper.convertToUserDetailedInfoDto(userDetailedInfo.get());
+                user.ifPresent(value -> userDetailedInfoDto.setUsername(value.getUsername()));
                 return ResponseDto.builder()
                         .success(true)
                         .data(userDetailedInfoDto).build();
@@ -49,6 +50,8 @@ public class UserDetailedInfoImpl implements UserDetailedInfoService {
         Optional<UserDetailedInfo> userDetailedInfo = detailedInfoRepository.findById(id);
         if (userDetailedInfo.isPresent()) {
             UserDetailedInfoDto userDetailedInfoDto = ObjectsMapper.convertToUserDetailedInfoDto(userDetailedInfo.get());
+            Optional<User> user = userRepository.findByUsername(userDetailedInfo.get().getUser().getUsername());
+            user.ifPresent(value -> userDetailedInfoDto.setUsername(value.getUsername()));
             return ResponseDto.builder()
                     .success(true)
                     .data(userDetailedInfoDto).build();
@@ -115,6 +118,7 @@ public class UserDetailedInfoImpl implements UserDetailedInfoService {
         Optional<UserDetailedInfo> userDetailedInfo = detailedInfoRepository.findByUser(user);
         if (userDetailedInfo.isPresent()) {
             UserDetailedInfoDto dto = ObjectsMapper.convertToUserDetailedInfoDto(userDetailedInfo.get());
+            dto.setUsername(user.getUsername());
             return ResponseDto.builder()
                     .success(true)
                     .data(dto).build();
