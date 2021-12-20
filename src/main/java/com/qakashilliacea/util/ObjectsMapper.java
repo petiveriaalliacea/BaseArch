@@ -1,5 +1,6 @@
 package com.qakashilliacea.util;
 
+import com.qakashilliacea.entity.Order;
 import com.qakashilliacea.entity.Publication;
 import com.qakashilliacea.entity.Role;
 import com.qakashilliacea.entity.User;
@@ -64,5 +65,18 @@ public class ObjectsMapper {
 
     public static UserDto convertToUserDtoWithoutPass(User user) {
         return UserDto.builder().username(user.getUsername()).build();
+    }
+
+    public static OrderInfoDto converToOrderInfoDto (Order order) {
+        return OrderInfoDto.builder()
+                .orderStatus(order.getOrderStatus())
+                .creationDate(order.getCreatedDate())
+                .userId(order.getCreatedBy().getId())
+                .productId(order.getProductId())
+                .build();
+    }
+
+    public static Order convertToOrder (OrderDto dto) {
+        return Order.builder().productId(dto.getProductId()).build();
     }
 }
