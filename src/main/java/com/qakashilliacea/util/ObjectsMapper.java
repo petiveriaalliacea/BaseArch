@@ -4,6 +4,7 @@ import com.qakashilliacea.entity.Comment;
 import com.qakashilliacea.entity.Publication;
 import com.qakashilliacea.entity.Role;
 import com.qakashilliacea.entity.User;
+import com.qakashilliacea.entity.UserDetailedInfo;
 import com.qakashilliacea.service.CurrentUserService;
 import com.qakashilliacea.web.dto.*;
 import lombok.experimental.UtilityClass;
@@ -69,7 +70,7 @@ public class ObjectsMapper {
         return UserDto.builder().username(user.getUsername()).build();
     }
 
-    public static Comment convertCommentCreatorToComment(CommentDto commentDto){
+    public static Comment convertCommentCreatorToComment(CommentDto commentDto) {
         return Comment.builder()
                 .description(commentDto.getDescription())
                 .publicationId(commentDto.getPublicationId())
@@ -77,7 +78,7 @@ public class ObjectsMapper {
                 .build();
     }
 
-    public static CommentInfoDto convertToCommentDto(Comment comment){
+    public static CommentInfoDto convertToCommentDto(Comment comment) {
         return CommentInfoDto.builder()
                 .id(comment.getId())
                 .description(comment.getDescription())
@@ -85,5 +86,31 @@ public class ObjectsMapper {
                 .publicationId(comment.getPublicationId())
                 .createdDate(comment.getCreatedDate())
                 .build();
+    }
+
+    public static UserDetailedInfo convertToUserDetailedInfo(UserRegistrationInfoDto dto) {
+        return UserDetailedInfo.builder()
+                .firstname(dto.getFirstname())
+                .lastname(dto.getLastname())
+                .patronymic(dto.getPatronymic())
+                .phone(dto.getPhone())
+                .country(dto.getCountry())
+                .birth(dto.getBirth())
+                .sex(dto.getSex())
+                .about(dto.getAbout())
+                .job(dto.getJob()).build();
+    }
+
+    public static UserDetailedInfoDto convertToUserDetailedInfoDto(UserDetailedInfo dao) {
+        return UserDetailedInfoDto.builder()
+                .firstname(dao.getFirstname())
+                .lastname(dao.getLastname())
+                .patronymic(dao.getPatronymic())
+                .phone(dao.getPhone())
+                .country(dao.getCountry())
+                .birth(dao.getBirth())
+                .sex(dao.getSex())
+                .about(dao.getAbout())
+                .job(dao.getJob()).build();
     }
 }
