@@ -46,21 +46,6 @@ public class UserDetailedInfoImpl implements UserDetailedInfoService {
     }
 
     @Override
-    public ResponseDto getById(Long id) {
-        Optional<UserDetailedInfo> userDetailedInfo = detailedInfoRepository.findById(id);
-        if (userDetailedInfo.isPresent()) {
-            UserDetailedInfoDto userDetailedInfoDto = ObjectsMapper.convertToUserDetailedInfoDto(userDetailedInfo.get());
-            Optional<User> user = userRepository.findByUsername(userDetailedInfo.get().getUser().getUsername());
-            user.ifPresent(value -> userDetailedInfoDto.setUsername(value.getUsername()));
-            return ResponseDto.builder()
-                    .success(true)
-                    .data(userDetailedInfoDto).build();
-        }
-        return ResponseDto.builder()
-                .status(NOT_FOUND).build();
-    }
-
-    @Override
     public ResponseDto changeDetails(UserDetailedInfoDto dto) {
         User user = currentUserService.getCurrentUser();
         Optional<UserDetailedInfo> userDetailedInfo = detailedInfoRepository.findByUser(user);
