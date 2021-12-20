@@ -25,8 +25,6 @@ public class UserDetailedInfo extends BaseEntity<Long> {
     private String phone;
     @Column(name = "country")
     private String country;
-    @Column(name = "username")
-    private String username;
     @Column(name = "birthday")
     private LocalDate birth;
     @Column(name = "gender")

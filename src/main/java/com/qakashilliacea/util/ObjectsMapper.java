@@ -70,7 +70,7 @@ public class ObjectsMapper {
         return UserDto.builder().username(user.getUsername()).build();
     }
 
-    public static Comment convertCommentCreatorToComment(CommentDto commentDto){
+    public static Comment convertCommentCreatorToComment(CommentDto commentDto) {
         return Comment.builder()
                 .description(commentDto.getDescription())
                 .publicationId(commentDto.getPublicationId())
@@ -78,7 +78,7 @@ public class ObjectsMapper {
                 .build();
     }
 
-    public static CommentInfoDto convertToCommentDto(Comment comment){
+    public static CommentInfoDto convertToCommentDto(Comment comment) {
         return CommentInfoDto.builder()
                 .id(comment.getId())
                 .description(comment.getDescription())
@@ -95,7 +95,6 @@ public class ObjectsMapper {
                 .patronymic(dto.getPatronymic())
                 .phone(dto.getPhone())
                 .country(dto.getCountry())
-                .username(dto.getUsername())
                 .birth(dto.getBirth())
                 .sex(dto.getSex())
                 .about(dto.getAbout())
@@ -109,7 +108,6 @@ public class ObjectsMapper {
                 .patronymic(dao.getPatronymic())
                 .phone(dao.getPhone())
                 .country(dao.getCountry())
-                .username(dao.getUsername())
                 .birth(dao.getBirth())
                 .sex(dao.getSex())
                 .about(dao.getAbout())

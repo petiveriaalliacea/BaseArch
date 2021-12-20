@@ -71,7 +71,6 @@ public class UserDetailedInfoImpl implements UserDetailedInfoService {
             user.setUsername(dto.getUsername());
             user.setIsVerified(false);
             user = userRepository.save(user);
-            userDetailedInfo.get().setUsername(dto.getUsername());
             userDetailedInfo.get().setUser(user);
             String uuid = UUID.randomUUID().toString();
             emailSenderService.sendEmail(user, uuid);
