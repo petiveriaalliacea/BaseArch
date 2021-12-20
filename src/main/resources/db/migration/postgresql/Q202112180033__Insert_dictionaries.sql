@@ -10,4 +10,7 @@ INSERT INTO public.qakashilliacea_user_roles(user_id, roles_id)
 VALUES (2, 1);
 INSERT INTO public.qakashilliacea_user_roles(user_id, roles_id)
 VALUES (2, 2);
-
+INSERT INTO public.qakashilliacea_publication_type(id, type)
+VALUES (1, 'news');
+INSERT INTO public.qakashilliacea_publication_type(id, type)
+VALUES (2, 'blog');

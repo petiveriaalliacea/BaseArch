@@ -1,9 +1,11 @@
 package com.qakashilliacea.util;
 
 import com.qakashilliacea.entity.Order;
+import com.qakashilliacea.entity.Comment;
 import com.qakashilliacea.entity.Publication;
 import com.qakashilliacea.entity.Role;
 import com.qakashilliacea.entity.User;
+import com.qakashilliacea.service.CurrentUserService;
 import com.qakashilliacea.web.dto.*;
 import lombok.experimental.UtilityClass;
 
@@ -48,7 +50,7 @@ public class ObjectsMapper {
 
     public static Publication convertPublicationCreatorToPublication(PublicationDto publicationDto) {
         return Publication.builder().name(publicationDto.getName())
-                .description(publicationDto.getDescription()).build();
+                .description(publicationDto.getDescription()).typeId(publicationDto.getTypeId()).build();
     }
 
     public static PublicationInfoDto convertToPublicationDto(Publication publication) {
@@ -60,6 +62,7 @@ public class ObjectsMapper {
                 .views(publication.getViews())
                 .userId(publication.getUserId())
                 .amountOfLikes(publication.getAmountOfLikes())
+                .typeId(publication.getTypeId())
                 .build();
     }
 
@@ -78,5 +81,23 @@ public class ObjectsMapper {
 
     public static Order convertToOrder (OrderDto dto) {
         return Order.builder().productId(dto.getProductId()).build();
+    }
+
+    public static Comment convertCommentCreatorToComment(CommentDto commentDto){
+        return Comment.builder()
+                .description(commentDto.getDescription())
+                .publicationId(commentDto.getPublicationId())
+                .parentId(commentDto.getParentId())
+                .build();
+    }
+
+    public static CommentInfoDto convertToCommentDto(Comment comment){
+        return CommentInfoDto.builder()
+                .id(comment.getId())
+                .description(comment.getDescription())
+                .userId(comment.getCreatedBy().getId())
+                .publicationId(comment.getPublicationId())
+                .createdDate(comment.getCreatedDate())
+                .build();
     }
 }

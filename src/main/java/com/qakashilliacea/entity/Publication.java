@@ -34,6 +34,9 @@ public class Publication extends BaseEntity<Long> {
     @Column(name = "user_id")
     private Long userId;
 
+    @Column(name = "type_id")
+    private Long typeId;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
     private User user;
