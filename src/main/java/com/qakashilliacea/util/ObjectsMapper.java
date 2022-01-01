@@ -71,7 +71,6 @@ public class ObjectsMapper {
         return UserDto.builder().username(user.getUsername()).build();
     }
 
-    public static Comment convertCommentCreatorToComment(CommentDto commentDto) {
     public static OrderInfoDto converToOrderInfoDto (Order order) {
         return OrderInfoDto.builder()
                 .orderStatus(order.getOrderStatus())

@@ -10,6 +10,7 @@ import com.qakashilliacea.web.dto.OrderInfoDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,10 +34,12 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional
     public OrderInfoDto changeStatus(String status, Long orderId) {
         Order order = orderRepository.findById(orderId).orElse(null);
         order.setOrderStatus(OrderStatus.valueOf(status.toUpperCase()));
         orderRepository.save(order);
+        System.out.println("order saved");
         return ObjectsMapper.converToOrderInfoDto(order);
     }
 }
