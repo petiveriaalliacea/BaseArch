@@ -1,9 +1,8 @@
 package com.qakashilliacea.web.rest;
 
 import com.qakashilliacea.service.PublicationService;
-import com.qakashilliacea.util.constants.Constants;
-import com.qakashilliacea.web.dto.PageableDto;
 import com.qakashilliacea.web.dto.PublicationDto;
+import com.qakashilliacea.web.dto.PublicationSortDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -31,11 +30,10 @@ public class PublicationController {
         return ResponseEntity.ok(publicationService.getById(id));
     }
 
-    @PostMapping("/getByUserId/{userId}")
-    @ApiOperation(value = "get publication info by user Id")
-    public ResponseEntity getByUserId(@ApiParam(value = "user id") @PathVariable("userId") Long userId,
-                                      @ApiParam(value = "PageRequestDto") @RequestBody PageableDto dto) {
-        return ResponseEntity.ok(publicationService.getAllByUserId(userId, dto));
+    @PostMapping("/sorted/")
+    @ApiOperation(value = "get publication info")
+    public ResponseEntity getSorted(@ApiParam(value = "Sorting") @RequestBody PublicationSortDto dto) {
+        return ResponseEntity.ok(publicationService.getAllSorted(dto));
     }
 
     @Transactional
@@ -59,23 +57,4 @@ public class PublicationController {
         return ResponseEntity.ok(publicationService.create(publicationDto, principal));
     }
 
-    @PostMapping("/getAllPageableByDate")
-    @ApiOperation(value = "get all pageable objects by date")
-    public ResponseEntity getAllPageableByDate(@ApiParam(value = "PageRequestDto") @RequestBody PageableDto dto) {
-        return ResponseEntity.ok(publicationService.getAllPageableByDate(dto));
-    }
-
-    @PostMapping("/getAllPageableByUserId/{userId}")
-    @ApiOperation(value = "get all pageable objects by user id")
-    public ResponseEntity getAllPageableByUserId(@ApiParam(value = "user id") @PathVariable("userId") Long userId,
-                                                 @ApiParam(value = "PageRequestDto") @RequestBody PageableDto dto) {
-        return ResponseEntity.ok(publicationService.getAllPageableByUserId(userId, dto));
-    }
-
-    @PostMapping("/getAllPageableByType/{type}")
-    @ApiOperation(value = "get all pageable object by publication type")
-    public ResponseEntity getAllPageAbleByType(@ApiParam(value = "publication type") @PathVariable("type") String type,
-                                               @ApiParam(value = "PageRequestDto") @RequestBody PageableDto dto) {
-        return ResponseEntity.ok(publicationService.getAllPageableByPublicationType(type, dto));
-    }
 }

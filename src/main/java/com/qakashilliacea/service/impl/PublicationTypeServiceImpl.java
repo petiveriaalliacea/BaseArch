@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-import static com.qakashilliacea.util.constants.ErrorConstants.NOT_FOUND;
+import static org.springframework.http.HttpStatus.*;
 
 @Service
 @RequiredArgsConstructor
-public class PublicationTypeImpl implements PublicationTypeService {
+public class PublicationTypeServiceImpl implements PublicationTypeService {
     private final PublicationTypeRepository publicationTypeRepository;
 
     @Override
@@ -25,7 +25,7 @@ public class PublicationTypeImpl implements PublicationTypeService {
             responseDto.setData(publicationType);
             return responseDto;
         }
-        responseDto.setStatus(NOT_FOUND);
+        responseDto.setStatus(NOT_FOUND.value());
         return responseDto;
     }
 }

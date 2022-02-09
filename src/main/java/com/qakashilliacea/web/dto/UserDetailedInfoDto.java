@@ -21,7 +21,7 @@ public class UserDetailedInfoDto {
     private String username;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate birth;
-    private String sex;
+    private String gender;
     private String about;
     private String job;
 }

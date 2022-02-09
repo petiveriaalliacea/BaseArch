@@ -2,6 +2,8 @@ package com.qakashilliacea.service;
 
 import com.qakashilliacea.entity.User;
 
+import java.util.Optional;
+
 public interface CurrentUserService {
-    User getCurrentUser();
+    Optional<User> getCurrentUser();
 }

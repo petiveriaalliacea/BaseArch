@@ -1,5 +1,6 @@
 package com.qakashilliacea.service;
 
+import com.qakashilliacea.entity.User;
 import com.qakashilliacea.web.dto.ResponseDto;
 import com.qakashilliacea.web.dto.UserDto;
 

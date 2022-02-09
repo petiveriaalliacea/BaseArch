@@ -6,7 +6,7 @@ import com.qakashilliacea.entity.Publication;
 import com.qakashilliacea.entity.Role;
 import com.qakashilliacea.entity.User;
 import com.qakashilliacea.entity.UserDetailedInfo;
-import com.qakashilliacea.service.CurrentUserService;
+import com.qakashilliacea.entity.enums.Gender;
 import com.qakashilliacea.web.dto.*;
 import lombok.experimental.UtilityClass;
 
@@ -54,12 +54,12 @@ public class ObjectsMapper {
                 .description(publicationDto.getDescription()).typeId(publicationDto.getTypeId()).build();
     }
 
-    public static PublicationInfoDto convertToPublicationDto(Publication publication) {
+    public static PublicationInfoDto convertToPublicationInfoDto(Publication publication) {
         return PublicationInfoDto.builder()
                 .id(publication.getId())
                 .name(publication.getName())
                 .description(publication.getDescription())
-                .createdAt(publication.getCreatedAt())
+                .createdAt(publication.getCreatedDate())
                 .views(publication.getViews())
                 .userId(publication.getUserId())
                 .amountOfLikes(publication.getAmountOfLikes())
@@ -92,7 +92,7 @@ public class ObjectsMapper {
                 .build();
     }
 
-    public static CommentInfoDto convertToCommentDto(Comment comment) {
+    public static CommentInfoDto convertToCommentInfoDto(Comment comment) {
         return CommentInfoDto.builder()
                 .id(comment.getId())
                 .description(comment.getDescription())
@@ -110,7 +110,7 @@ public class ObjectsMapper {
                 .phone(dto.getPhone())
                 .country(dto.getCountry())
                 .birth(dto.getBirth())
-                .sex(dto.getSex())
+                .gender(Gender.valueOf(dto.getSex()))
                 .about(dto.getAbout())
                 .job(dto.getJob()).build();
     }
@@ -123,7 +123,7 @@ public class ObjectsMapper {
                 .phone(dao.getPhone())
                 .country(dao.getCountry())
                 .birth(dao.getBirth())
-                .sex(dao.getSex())
+                .gender(dao.getGender().name())
                 .about(dao.getAbout())
                 .job(dao.getJob()).build();
     }

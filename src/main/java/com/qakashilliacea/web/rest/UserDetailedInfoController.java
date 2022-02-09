@@ -7,8 +7,12 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
+
+import java.security.Principal;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,15 +28,15 @@ public class UserDetailedInfoController {
     }
 
     @PostMapping("/changeUserDetails")
-    @ApiOperation(value = "changeUserInfo")
-    public ResponseEntity changeUserDetails(@ApiParam(value = "Dto with user detailed data")
-                                            @RequestBody UserDetailedInfoDto dto) {
-        return ResponseEntity.ok(detailedInfoService.changeDetails(dto));
+    @ApiOperation(value = "change info of logged in user")
+    public ResponseEntity changeMyDetails(@ApiParam(value = "Dto with user detailed data") @RequestBody UserDetailedInfoDto dto,
+                                          @ApiIgnore @Autowired Principal principal) {
+        return ResponseEntity.ok(detailedInfoService.changeMyDetails(dto, principal.getName()));
     }
 
     @GetMapping("/getByLoggedUser")
     @ApiOperation(value = "get logged user detailed info")
-    public ResponseEntity gerLoggedUserInfo() {
-        return ResponseEntity.ok(detailedInfoService.getByLoggedUserInfo());
+    public ResponseEntity gerLoggedUserInfo(@ApiIgnore @Autowired Principal principal) {
+        return ResponseEntity.ok(detailedInfoService.getInfoByUsername(principal.getName()));
     }
 }

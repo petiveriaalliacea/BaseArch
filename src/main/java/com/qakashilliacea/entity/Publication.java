@@ -6,9 +6,10 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = Constants.DATABASE_PREFIX + "publications")
+@Table(name = Constants.DATABASE_PREFIX + "publication")
 @Getter
 @Setter
 @Builder
@@ -22,7 +23,7 @@ public class Publication extends BaseEntity<Long> {
     private String description;
 
     @Column(name = "publication_created_date")
-    private LocalDate createdAt;
+    private LocalDateTime createdDate;
 
     @Column(name = "views")
     private Integer views;

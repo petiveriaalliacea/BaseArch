@@ -19,10 +19,14 @@ import java.util.Set;
 public class User extends BaseEntity<Long> {
     @Column(name = "username", columnDefinition = "VARCHAR")
     private String username;
+
     @Column(name = "password", columnDefinition = "VARCHAR")
     private String password;
+
     @Column(name = "verified_email")
-    private Boolean isVerified = false;
+    @Builder.Default
+    private Boolean verified = false;
+
     @ManyToMany
     private Set<Role> roles = new HashSet<>();
 }

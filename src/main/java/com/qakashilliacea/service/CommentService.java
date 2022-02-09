@@ -12,5 +12,10 @@ public interface CommentService {
 
     ResponseDto findAllByPublicationId(Long id, PageableDto dto);
 
+    ResponseDto findAllParentsByPublicationId (Long publicationId, PageableDto dto);
+
+    ResponseDto findAllChildByParentId (Long parentId, PageableDto dto);
+
+    ResponseDto findAllPageableParentsWithChildren (Long publicationId, PageableDto dto);
 
 }

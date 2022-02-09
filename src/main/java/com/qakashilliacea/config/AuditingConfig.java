@@ -22,7 +22,7 @@ public class AuditingConfig {
 
     @Bean
     public AuditorAware<User> auditorProvider() {
-        return () -> Optional.of(currentUserService.getCurrentUser());
+        return () -> currentUserService.getCurrentUser();
     }
 
     @Bean

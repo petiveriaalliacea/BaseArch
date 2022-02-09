@@ -1,10 +1,8 @@
 package com.qakashilliacea.web.rest.auth;
 
 import com.qakashilliacea.service.AuthService;
-import com.qakashilliacea.util.constants.Constants;
+import com.qakashilliacea.service.EmailService;
 import com.qakashilliacea.web.dto.LoginDto;
-import com.qakashilliacea.web.dto.RegisterDto;
-import com.qakashilliacea.web.dto.UserDetailedInfoDto;
 import com.qakashilliacea.web.dto.UserRegistrationInfoDto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
@@ -21,11 +19,18 @@ import static com.qakashilliacea.util.constants.Constants.PUBLIC_API_ENDPOINT;
 @ApiModel(value = "AuthController", description = "Authentication Controller , user registration and login processes")
 public class AuthController {
     private final AuthService authService;
+    private final EmailService emailService;
 
-    @PostMapping("/signUp")
-    @ApiOperation(value = "Registration process")
-    public ResponseEntity signUp(@ApiParam(value = "dto with register data") @RequestBody UserRegistrationInfoDto dto) {
-        return ResponseEntity.ok(authService.signUp(dto));
+    @PostMapping("/emailSignUp")
+    @ApiOperation(value = "Email registration")
+    public ResponseEntity emailSignUp(@ApiParam(value = "dto with register data") @RequestBody UserRegistrationInfoDto dto) {
+        return ResponseEntity.ok(authService.emailSignUp(dto));
+    }
+
+    @PostMapping("/simpleSignUp")
+    @ApiOperation(value = "Simple registration")
+    public ResponseEntity simpleSignUp(@ApiParam(value = "dto with register data") @RequestBody UserRegistrationInfoDto dto) {
+        return ResponseEntity.ok(authService.simpleSignUp(dto));
     }
 
     @PostMapping("/signIn")
@@ -36,10 +41,8 @@ public class AuthController {
 
     @PostMapping("/verifyEmailAddress")
     @ApiOperation(value = "verification process")
-    public ResponseEntity verify(@ApiParam(value = "uuid to verify")
-                                 @RequestParam("uuid") String uuid,
-                                 @ApiParam(value = "code to verify email")
-                                 @RequestParam("code") String code) {
-        return ResponseEntity.ok(authService.verifyEmail(uuid, code));
+    public ResponseEntity verify(@ApiParam(value = "uuid to verify") @RequestParam("uuid") String uuid,
+                                 @ApiParam(value = "code to verify email") @RequestParam("code") String code) {
+        return ResponseEntity.ok(emailService.verifyEmail(uuid, code));
     }
 }

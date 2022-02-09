@@ -7,11 +7,11 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/test
     username: postgres
-    password: 12345
+    password: postgres
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
@@ -42,3 +42,4 @@ spring:
     baseline-on-migrate: true
     sql-migration-prefix: "Q"
     locations: classpath:/db/migration/postgresql
+    table: qakashilliacea_flyway_schema

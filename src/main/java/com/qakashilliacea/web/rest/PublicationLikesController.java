@@ -5,10 +5,14 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.transaction.Transactional;
+
+import java.security.Principal;
 
 import static com.qakashilliacea.util.constants.Constants.PRIVATE_API_ENDPOINT;
 
@@ -21,14 +25,16 @@ public class PublicationLikesController {
 
     @PostMapping("/addLike/{publicationId}")
     @ApiOperation(value = "add like to publication")
-    public ResponseEntity addLike(@ApiParam("publicationId") @PathVariable("publicationId") Long publicationId) {
-        return ResponseEntity.ok(likesService.addLikeToPublication(publicationId));
+    public ResponseEntity addLike(@ApiParam("publicationId") @PathVariable("publicationId") Long publicationId,
+                                  @ApiIgnore @Autowired Principal principal) {
+        return ResponseEntity.ok(likesService.addLikeToPublication(publicationId, principal.getName()));
     }
 
     @Transactional
     @DeleteMapping("/deleteLike/{publicationId}")
     @ApiOperation(value = "delete like from publication")
-    public ResponseEntity deleteLike(@ApiParam("publicationId") @PathVariable("publicationId") Long publicationId) {
-        return ResponseEntity.ok(likesService.deleteLikeFromPublication(publicationId));
+    public ResponseEntity deleteLike(@ApiParam("publicationId") @PathVariable("publicationId") Long publicationId,
+                                     @ApiIgnore @Autowired Principal principal) {
+        return ResponseEntity.ok(likesService.deleteLikeFromPublication(publicationId, principal.getName()));
     }
 }

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(Constants.PRIVATE_API_ENDPOINT + "/order")
+@RequestMapping(Constants.PUBLIC_API_ENDPOINT + "/order")
 public class OrderController {
     private final OrderService orderService;
 

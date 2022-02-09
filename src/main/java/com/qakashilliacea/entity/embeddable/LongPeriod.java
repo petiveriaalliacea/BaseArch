@@ -5,13 +5,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Embeddable;
-import java.time.LocalDate;
 
 @Data
 @Embeddable
 @NoArgsConstructor
 @AllArgsConstructor
-public class DatePeriod {
-    private LocalDate from;
-    private LocalDate to;
+public class LongPeriod {
+    private Long from = 0L;
+    private Long to = 0L;
 }
