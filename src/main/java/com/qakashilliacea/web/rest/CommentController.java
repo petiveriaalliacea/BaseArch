@@ -27,7 +27,7 @@ public class CommentController {
     @ApiOperation(value = "create comment")
     public ResponseEntity createComment(@ApiIgnore @Autowired Principal principal,
                                         @ApiParam("dto to create comment") @RequestBody CommentDto commentDto){
-        return ResponseEntity.ok(commentService.create(commentDto,principal));
+        return ResponseEntity.ok(commentService.create(commentDto, principal));
     }
 
     @PostMapping("/getAllByPublicationId/{publicationId}")

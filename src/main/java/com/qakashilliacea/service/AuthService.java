@@ -3,9 +3,9 @@ package com.qakashilliacea.service;
 import com.qakashilliacea.web.dto.*;
 
 public interface AuthService {
-    ResponseDto signUp(UserRegistrationInfoDto dto);
+    ResponseDto emailSignUp(UserRegistrationInfoDto dto);
+
+    ResponseDto simpleSignUp (UserRegistrationInfoDto dto);
 
     ResponseDto signIn(LoginDto dto);
-
-    ResponseDto verifyEmail(String uuid, String code);
 }

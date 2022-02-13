@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModel;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -12,7 +13,7 @@ public class PublicationInfoDto {
     private Long id;
     private String name;
     private String description;
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
     private Integer views;
     private Integer amountOfLikes;
     private Long typeId;

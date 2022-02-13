@@ -4,6 +4,7 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class Constants {
+    public static final Long SYSTEM_ID = 1L;
     public static final String AUTHORIZATION_PREFIX = "bearer";
     public static final String AUTHORIZATION_HEADER = "Authorization";
     public static final String DATABASE_PREFIX = "qakashilliacea_";

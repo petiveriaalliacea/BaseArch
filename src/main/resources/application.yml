@@ -5,9 +5,9 @@ email:
   address: basearchetype@gmail.com
 spring:
   datasource:
-    url: jdbc:postgresql://base-archetype-test-postgres.postgres.database.azure.com:5432/test
-    username: postgres@base-archetype-test-postgres
-    password: 12345Abc!
+    url: jdbc:postgresql://localhost:5432/test
+    username: postgres
+    password: postgres
 
   jpa:
     hibernate:
@@ -42,3 +42,4 @@ spring:
     baseline-on-migrate: true
     sql-migration-prefix: "Q"
     locations: classpath:/db/migration/postgresql
+    table: qakashilliacea_flyway_schema

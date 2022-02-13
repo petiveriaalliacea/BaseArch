@@ -1,6 +1,7 @@
 package com.qakashilliacea.entity;
 
 import com.qakashilliacea.entity.base.BaseEntity;
+import com.qakashilliacea.entity.enums.Gender;
 import com.qakashilliacea.util.constants.Constants;
 import lombok.*;
 
@@ -17,22 +18,32 @@ import java.time.LocalDate;
 public class UserDetailedInfo extends BaseEntity<Long> {
     @Column(name = "first_name")
     private String firstname;
+
     @Column(name = "last_name")
     private String lastname;
+
     @Column(name = "patronymic")
     private String patronymic;
+
     @Column(name = "phone_number")
     private String phone;
+
     @Column(name = "country")
     private String country;
+
     @Column(name = "birthday")
     private LocalDate birth;
+
     @Column(name = "gender")
-    private String sex;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+
     @Column(name = "about_me")
     private String about;
+
     @Column(name = "job")
     private String job;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;

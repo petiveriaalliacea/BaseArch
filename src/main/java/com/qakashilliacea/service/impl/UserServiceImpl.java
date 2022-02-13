@@ -10,9 +10,12 @@ import com.qakashilliacea.util.ObjectsMapper;
 import com.qakashilliacea.web.dto.ResponseDto;
 import com.qakashilliacea.web.dto.UserDto;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+
+import static org.springframework.http.HttpStatus.*;
 
 @Service
 @AllArgsConstructor
@@ -24,7 +27,7 @@ public class UserServiceImpl implements UserService {
     public ResponseDto createUser(UserDto dto) {
         ResponseDto response = new ResponseDto<UserDto>();
         if (userRepository.existsByUsername(dto.getUsername())) {
-            response.setStatus(400);
+            response.setStatus(BAD_REQUEST.value());
             response.setErrorMessage(ErrorMessages.userWithLoginExists(dto.getUsername()));
             return response;
         }
@@ -38,12 +41,12 @@ public class UserServiceImpl implements UserService {
     public ResponseDto updateUser(UserDto dto, Long id) {
         ResponseDto response = new ResponseDto<UserDto>();
         if (!userRepository.existsById(id)) {
-            response.setStatus(404);
+            response.setStatus(NOT_FOUND.value());
             response.setErrorMessage(ErrorMessages.cantFindEntityById("User", id));
             return response;
         }
         if (userRepository.existsByUsername(dto.getUsername())) {
-            response.setStatus(400);
+            response.setStatus(BAD_REQUEST.value());
             response.setErrorMessage(ErrorMessages.userWithLoginExists(dto.getUsername()));
             return response;
         }
@@ -68,7 +71,7 @@ public class UserServiceImpl implements UserService {
     public ResponseDto readUser(Long id) {
         ResponseDto response = new ResponseDto<UserDto>();
         if (!userRepository.existsById(id)) {
-            response.setStatus(404);
+            response.setStatus(NOT_FOUND.value());
             response.setErrorMessage(ErrorMessages.cantFindEntityById("User", id));
             return response;
         }
@@ -82,7 +85,7 @@ public class UserServiceImpl implements UserService {
     public ResponseDto deleteUser(Long id) {
         ResponseDto response = new ResponseDto<UserDto>();
         if (!userRepository.existsById(id)) {
-            response.setStatus(404);
+            response.setStatus(NOT_FOUND.value());
             response.setErrorMessage(ErrorMessages.cantFindEntityById("User", id));
             return response;
         }

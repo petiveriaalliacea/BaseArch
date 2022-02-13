@@ -6,7 +6,7 @@ import com.qakashilliacea.web.dto.UserDetailedInfoDto;
 public interface UserDetailedInfoService {
     ResponseDto getByUserId(Long userId);
 
-    ResponseDto changeDetails(UserDetailedInfoDto dto);
+    ResponseDto changeMyDetails(UserDetailedInfoDto dto, String userName);
 
-    ResponseDto getByLoggedUserInfo();
+    ResponseDto getInfoByUsername(String username);
 }
